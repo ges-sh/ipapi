@@ -81,7 +81,7 @@ var ipAPIErrors = map[string]error{
 	"invalid query":  ErrInvalidQuery,
 }
 
-// FetchIPLocation fetches location info about provided ip address. If ip is invalid, ErrInvalidIP will be returned
+// FetchIPLocation fetches location info about provided ip address.
 func (c Client) FetchIPLocation(ip net.IP) (IPLocation, error) {
 	if ip == nil {
 		return IPLocation{}, ErrInvalidIP
@@ -115,6 +115,16 @@ func (c Client) FetchIPLocation(ip net.IP) (IPLocation, error) {
 	}
 
 	return locationData, ipAPIErrors[locationData.Message]
+}
+
+// FetchIPLocation fetches location info about provided ip address. If ip is invalid, ErrInvalidIP will be returned
+func (c Client) FetchIPLocationStr(addr string) (IPLocation, error) {
+	ip := net.ParseIP(addr)
+	if ip == nil {
+		return IPLocation{}, ErrInvalidIP
+	}
+
+	return c.FetchIPLocation(ip)
 }
 
 // Pro enables usage of pro version of ip-api API.

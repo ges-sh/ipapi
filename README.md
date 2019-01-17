@@ -20,7 +20,6 @@ import (
 	"github.com/ges-sh/ipapi"
 )
 
-// errors omitted for brevity
 func main() {
 	client, _ := ipapi.New("en")
 
@@ -29,7 +28,16 @@ func main() {
 	fmt.Printf("%+v\n", ipLoc) // {Query:24.48.0.1 Status:success Message: Country:Canada CountryCode:CA Region:QC RegionName:Quebec City:Vaudreuil-Dorion Zip:H9X Lat:45.4 Lon:-73.9333 Timezone:America/Toronto ISP:Le Groupe Videotron Ltee Org:Videotron Ltee AS:AS5769 Videotron Telecom Ltee}
 }
 ```
- 
+
+#### Using string instead of net.IP
+```go
+...
+	ipLoc, _ := client.FetchIPLocationStr("24.48.0.1")
+
+	fmt.Printf("%+v\n", ipLoc) // {Query:24.48.0.1 Status:success Message: Country:Canada CountryCode:CA Region:QC RegionName:Quebec City:Vaudreuil-Dorion Zip:H9X Lat:45.4 Lon:-73.9333 Timezone:America/Toronto ISP:Le Groupe Videotron Ltee Org:Videotron Ltee AS:AS5769 Videotron Telecom Ltee}
+}
+```
+
  ### To use Pro version of api:
  ```go
   client.Pro("your_api_key")
